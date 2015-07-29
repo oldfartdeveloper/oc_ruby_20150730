@@ -1,4 +1,6 @@
+#    -*- mode: org -*-
 #+OPTIONS: num:nil
+#+OPTIONS: toc:nil
 #+Title: Rails and Phoenix Side-by-Side
 #+Author: Scott Smith (OldFartDeveloper)
 #+Email: scottnelsonsmith@gmail.com
@@ -49,6 +51,12 @@
 * Scaffold Generate Same App in Rails and Phoenix
 * Demonstrate Web Sockets/Channels in Chat App
 ** Demonstrate Chat App
+- Demo
+
+#+BEGIN_NOTES
+Some speaker notes
+#+END_NOTES
+
 ** The Elixir Channel
 ** The Javascript Client
 * Questions
@@ -61,17 +69,18 @@ Nice org mode commands from Forrest.  Just type them as /less-than/ then one of:
   - 'h' for html block
 
 then /tab/
-
+** Try Quote
 #+BEGIN_QUOTE
 Everything should be made as simple as possible,
      but not any simpler -- Albert Einstein
 #+END_QUOTE
 And let's see what that does.
+** Try HTML
 #+BEGIN_HTML
 <h3>A header</h3>
 <p>Here is a paragraph</p>
 #+END_HTML
-#+REVEAL: split
+** Try src
 #+BEGIN_SRC ruby
 def bun
   # do something
