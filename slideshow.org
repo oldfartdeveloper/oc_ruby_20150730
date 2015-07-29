@@ -1,16 +1,23 @@
+#+OPTIONS: num:nil
 #+Title: Rails and Phoenix Side-by-Side
 #+Author: Scott Smith (OldFartDeveloper)
 #+Email: scottnelsonsmith@gmail.com
 
 * Introduction
 
-Tonight:
+- Tonight:
 
   - Introduce *Elixir* / *Phoenix*
 
-  - Build a *Phoenix* web app with authentication
+  - Use scaffolding to generate almost identical web apps in:
+    - Rails
+    - Phoenix
 
-  - Discuss development environment
+  - Web Sockets/Channels
+    - Interaction between Phoenix and Javascript
+    - A chat app
+
+  - Questions
 
 * Elixir / Phoenix
 
@@ -34,11 +41,17 @@ Tonight:
 
 ** Erlang
 
-Powerful
+  - Highly evolved language/framework for challenging concurrancy applications
+    that have to be reliable
+  - Mechanisms to handle failures of /just about anything/
+  - Not going to cover here
 
-* The End!
-
-Well there we have it. It wasn't so bad was it? Let me know what you think in the commments! Thank you so much for taking the time to read this and I hope you've learned something!
+* Scaffold Generate Same App in Rails and Phoenix
+* Demonstrate Web Sockets/Channels in Chat App
+** Demonstrate Chat App
+** The Elixir Channel
+** The Javascript Client
+* Questions
 * Play Area
 
 Nice org mode commands from Forrest.  Just type them as /less-than/ then one of:
@@ -46,6 +59,8 @@ Nice org mode commands from Forrest.  Just type them as /less-than/ then one of:
   - 's' for code blocks ("source" code)
   - 'q' for quote
   - 'h' for html block
+
+then /tab/
 
 #+BEGIN_QUOTE
 Everything should be made as simple as possible,
