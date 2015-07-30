@@ -49,6 +49,49 @@
   - Not going to cover here
 
 * Scaffold Generate Same App in Rails and Phoenix
+
+1. Generate Rails and Phoenix "starter" apps side by side
+
+1. Measure both for performance
+
+1. Generate 'user' CRUD both on *Postgresql*
+
+1. Measure both for performance
+
+** Commands to Generate "starter" apps
+
+#+ATTR_HTML: :width 100%
+|-------------------+---------------------+-----------------------------|
+| Purpose           | Rails               | Phoenix                     |
+|-------------------+---------------------+-----------------------------|
+| Language Install  | brew install ruby   | brew install elixir         |
+|-------------------+---------------------+-----------------------------|
+| Pkg Mgr           |                     | mix local.hex               |
+|-------------------+---------------------+-----------------------------|
+| Framework Install | gem install rails   | mix archive install phoenix |
+|-------------------+---------------------+-----------------------------|
+| Create App        | rails new demorails | mix phoenix.new demophoenix |
+|-------------------+---------------------+-----------------------------|
+| Run App           | rails server        | mix phoenix.server          |
+|-------------------+---------------------+-----------------------------|
+| Browse URL        | localhost:3000      | localhost:4000              |
+|-------------------+---------------------+-----------------------------|
+
+*** Minor Elixir Basic Fixes
+
+- The scaffold generators haven't yet been updated yet.
+
+- [[https://gist.github.com/chrismccord/57805158f463d3369103][Phoenix Upgrade Instructions 0.13.x 0.14.0]]
+
+#+BEGIN_SRC
+cd web/templates/layout
+mv application.html.eex app.html.eex
+#+END_SRC
+
+** Measure "starter" Apps Performance
+** Generate 'user' CRUD Enhancement
+** Measure Performance w/ Database
+
 * Demonstrate Web Sockets/Channels in Chat App
 ** Demonstrate Chat App
 - Demo
