@@ -61,21 +61,17 @@
 ** Commands to Generate "starter" apps
 
 #+ATTR_HTML: :width 100%
-|-------------------+---------------------+-----------------------------|
-| Purpose           | Rails               | Phoenix                     |
-|-------------------+---------------------+-----------------------------|
-| Language Install  | brew install ruby   | brew install elixir         |
-|-------------------+---------------------+-----------------------------|
-| Pkg Mgr           |                     | mix local.hex               |
-|-------------------+---------------------+-----------------------------|
-| Framework Install | gem install rails   | mix archive install phoenix |
-|-------------------+---------------------+-----------------------------|
-| Create App        | rails new demorails | mix phoenix.new demophoenix |
-|-------------------+---------------------+-----------------------------|
-| Run App           | rails server        | mix phoenix.server          |
-|-------------------+---------------------+-----------------------------|
-| Browse URL        | localhost:3000      | localhost:4000              |
-|-------------------+---------------------+-----------------------------|
+
+| Purpose           | Rails                             | Phoenix                     |
+|-------------------+-----------------------------------+-----------------------------|
+| Language Install  | brew install ruby                 | brew install elixir         |
+| Pkg Mgr           |                                   | mix local.hex               |
+| Framework Install | gem install rails                 | mix archive install phoenix |
+| Create App        | rails new -d postgresql demorails | mix phoenix.new demophoenix |
+| Create Database   | rake db:create; rake db:migrate   | createdb demophoenix_dev    |
+| Run App           | rails server                      | mix phoenix.server          |
+| Browse URL        | localhost:3000                    | localhost:4000              |
+
 
 *** Minor Elixir Basic Fixes
 
@@ -89,8 +85,42 @@ mv application.html.eex app.html.eex
 #+END_SRC
 
 ** Measure "starter" Apps Performance
+
+#+ATTR_HTML: :width 100%
+|             | demorails                            | demophoenix                          |
+|-------------+--------------------------------------+--------------------------------------|
+| cmd         | weighttp -n 1000 -c 4 localhost:3000 | weighttp -n 1000 -c 4 localhost:4000 |
+| req/s       | 192                                  | 291                                  |
+| finished/s  | 5.206                                | 3.429                                |
+| kbyte/s     | 2885                                 | 654                                  |
+| total bytes | 15,385,000                           | 2,299,000                            |
+| http bytes  | 450,000                              | 205,000                              |
+| data bytes  | 14,935,000                           | 2,094,000                            |
+
+
 ** Generate 'user' CRUD Enhancement
+
+#+ATTR_HTML: :width 100%
+| App         | Command to Generate User w/ email and password               |
+|-------------+--------------------------------------------------------------|
+| demorails   | rails generate scaffold User email:string password:string    |
+| demorails   | rails server                                                 |
+| demophoenix | mix phoenix.gen.html User users email:string password:string |
+| demophoenix | mix ecto.migrate                                             |
+| demophoenix | mix phoenix.server                                           |
+
 ** Measure Performance w/ Database
+
+#+ATTR_HTML: :width 100%
+|             | demorails                                  | demophoenix                                |
+|-------------+--------------------------------------------+--------------------------------------------|
+| cmd         | weighttp -n 1000 -c 4 localhost:3000/users | weighttp -n 1000 -c 4 localhost:4000/users |
+| req/s       | 28                                         | 68                                         |
+| finished/s  | 34.956                                     | 14.599                                     |
+| kbyte/s     | 79                                         | 140                                        |
+| total bytes | 2,862,000                                  | 2,099,000                                  |
+| http bytes  | 786,000                                    | 352,000                                    |
+| data bytes  | 2,076,000                                  | 1,747,000                                  |
 
 * Demonstrate Web Sockets/Channels in Chat App
 ** Demonstrate Chat App
