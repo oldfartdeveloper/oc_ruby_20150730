@@ -1,0 +1,494 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Rails and Phoenix Side-by-Side</title>
+<meta name="author" content="(Scott Smith (OldFartDeveloper))"/>
+
+<link rel="stylesheet" href="file:///Users/SSmith/work/reveal.js/css/reveal.css"/>
+<link rel="stylesheet" href="file:///Users/SSmith/work/reveal.js/css/theme/moon.css" id="theme"/>
+
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'file:///Users/SSmith/work/reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide">
+<h1>Rails and Phoenix Side-by-Side</h1>
+<h2>Scott Smith (OldFartDeveloper)</h2>
+<h2><a href="mailto:scottnelsonsmith@gmail.com">scottnelsonsmith@gmail.com</a></h2>
+<h2></h2>
+</section>
+
+<section>
+<section id="slide-sec-1">
+<h2 id="sec-1">Introduction</h2>
+<ul>
+<li>Tonight:
+
+<ul>
+<li>Introduce <b>Elixir</b> / <b>Phoenix</b></li>
+
+<li>Use scaffolding to generate almost identical web apps in:
+<ul>
+<li>Rails</li>
+<li>Phoenix</li>
+
+</ul></li>
+
+<li>Web Sockets/Channels
+<ul>
+<li>Interaction between Phoenix and Javascript</li>
+<li>A chat app</li>
+
+</ul></li>
+
+<li>Questions</li>
+
+</ul></li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-sec-2">
+<h2 id="sec-2">Elixir / Phoenix</h2>
+<dl>
+<dt>Elixir</dt><dd>A syntactically-rich functional language that transpiles to Erlang,
+a mature ultra-reliable language and library that's been developed
+ove the last 30 years.</dd>
+<dt>Phoenix</dt><dd>A web framework implemented in Elixir and patterned liked Rails.</dd>
+
+</dl>
+
+</section>
+<section id="slide-sec-2-1">
+<h3 id="sec-2-1">Elixir</h3>
+<ul>
+<li>Syntax is not Ruby but feels like it.</li>
+<li>Like Ruby, has powerful metaprogramming capability.</li>
+
+</ul>
+
+</section>
+<section id="slide-sec-2-2">
+<h3 id="sec-2-2">Phoenix</h3>
+<ul>
+<li>Patterned after Rails
+<ul>
+<li>Model/View/Controller</li>
+<li>Migrations</li>
+<li>Scaffolding</li>
+<li>Console</li>
+
+</ul></li>
+
+</ul>
+
+</section>
+<section id="slide-sec-2-3">
+<h3 id="sec-2-3">Erlang</h3>
+<ul>
+<li>Highly evolved language/framework for challenging concurrancy applications
+that have to be reliable</li>
+<li>Mechanisms to handle failures of <i>just about anything</i></li>
+<li>Not going to cover here</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-sec-3">
+<h2 id="sec-3">Scaffold Generate Same App in Rails and Phoenix</h2>
+<ol>
+<li>Generate Rails and Phoenix "starter" apps side by side</li>
+
+<li>Measure both for performance</li>
+
+<li>Generate 'user' CRUD both on <b>Postgresql</b></li>
+
+<li>Measure both for performance</li>
+
+</ol>
+
+</section>
+<section id="slide-sec-3-1">
+<h3 id="sec-3-1">Commands to Generate "starter" apps</h3>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="left" />
+
+<col  class="left" />
+
+<col  class="left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="left">Purpose</th>
+<th scope="col" class="left">Rails</th>
+<th scope="col" class="left">Phoenix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="left">Language Install</td>
+<td class="left">brew install ruby</td>
+<td class="left">brew install elixir</td>
+</tr>
+
+<tr>
+<td class="left">Pkg Mgr</td>
+<td class="left">&#xa0;</td>
+<td class="left">mix local.hex</td>
+</tr>
+
+<tr>
+<td class="left">Framework Install</td>
+<td class="left">gem install rails</td>
+<td class="left">mix archive install phoenix</td>
+</tr>
+
+<tr>
+<td class="left">Create App</td>
+<td class="left">rails new -d postgresql demorails</td>
+<td class="left">mix phoenix.new demophoenix</td>
+</tr>
+
+<tr>
+<td class="left">Create Database</td>
+<td class="left">rake db:create; rake db:migrate</td>
+<td class="left">createdb demophoenix_dev</td>
+</tr>
+
+<tr>
+<td class="left">Run App</td>
+<td class="left">rails server</td>
+<td class="left">mix phoenix.server</td>
+</tr>
+
+<tr>
+<td class="left">Browse URL</td>
+<td class="left">localhost:3000</td>
+<td class="left">localhost:4000</td>
+</tr>
+</tbody>
+</table>
+
+
+</section>
+<section id="slide-sec-3-1-1">
+<h4 id="sec-3-1-1">Minor Elixir Basic Fixes</h4>
+<ul>
+<li>The scaffold generators haven't yet been updated yet.</li>
+
+<li><a href="https://gist.github.com/chrismccord/57805158f463d3369103">Phoenix Upgrade Instructions 0.13.x 0.14.0</a></li>
+
+</ul>
+
+<pre  class="example">
+cd web/templates/layout
+mv application.html.eex app.html.eex
+</pre>
+
+</section>
+<section id="slide-sec-3-2">
+<h3 id="sec-3-2">Measure "starter" Apps Performance</h3>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides" width="100%">
+
+
+<colgroup>
+<col  class="left" />
+
+<col  class="left" />
+
+<col  class="left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="left">&#xa0;</th>
+<th scope="col" class="left">demorails</th>
+<th scope="col" class="left">demophoenix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="left">cmd</td>
+<td class="left">weighttp -n 1000 -c 4 localhost:3000</td>
+<td class="left">weighttp -n 1000 -c 4 localhost:4000</td>
+</tr>
+
+<tr>
+<td class="left">req/s</td>
+<td class="left">192</td>
+<td class="left">291</td>
+</tr>
+
+<tr>
+<td class="left">finished/s</td>
+<td class="left">5.206</td>
+<td class="left">3.429</td>
+</tr>
+
+<tr>
+<td class="left">kbyte/s</td>
+<td class="left">2885</td>
+<td class="left">654</td>
+</tr>
+
+<tr>
+<td class="left">total bytes</td>
+<td class="left">15,385,000</td>
+<td class="left">2,299,000</td>
+</tr>
+
+<tr>
+<td class="left">http bytes</td>
+<td class="left">450,000</td>
+<td class="left">205,000</td>
+</tr>
+
+<tr>
+<td class="left">data bytes</td>
+<td class="left">14,935,000</td>
+<td class="left">2,094,000</td>
+</tr>
+</tbody>
+</table>
+
+
+</section>
+<section id="slide-sec-3-3">
+<h3 id="sec-3-3">Generate 'user' CRUD Enhancement</h3>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides" width="100%">
+
+
+<colgroup>
+<col  class="left" />
+
+<col  class="left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="left">App</th>
+<th scope="col" class="left">Command to Generate User w/ email and password</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="left">demorails</td>
+<td class="left">rails generate scaffold User email:string password:string</td>
+</tr>
+
+<tr>
+<td class="left">demorails</td>
+<td class="left">rails server</td>
+</tr>
+
+<tr>
+<td class="left">demophoenix</td>
+<td class="left">mix phoenix.gen.html User users email:string password:string</td>
+</tr>
+
+<tr>
+<td class="left">demophoenix</td>
+<td class="left">mix ecto.migrate</td>
+</tr>
+
+<tr>
+<td class="left">demophoenix</td>
+<td class="left">mix phoenix.server</td>
+</tr>
+</tbody>
+</table>
+
+</section>
+<section id="slide-sec-3-4">
+<h3 id="sec-3-4">Measure Performance w/ Database</h3>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides" width="100%">
+
+
+<colgroup>
+<col  class="left" />
+
+<col  class="left" />
+
+<col  class="left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="left">&#xa0;</th>
+<th scope="col" class="left">demorails</th>
+<th scope="col" class="left">demophoenix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="left">cmd</td>
+<td class="left">weighttp -n 1000 -c 4 localhost:3000/users</td>
+<td class="left">weighttp -n 1000 -c 4 localhost:4000/users</td>
+</tr>
+
+<tr>
+<td class="left">req/s</td>
+<td class="left">28</td>
+<td class="left">68</td>
+</tr>
+
+<tr>
+<td class="left">finished/s</td>
+<td class="left">34.956</td>
+<td class="left">14.599</td>
+</tr>
+
+<tr>
+<td class="left">kbyte/s</td>
+<td class="left">79</td>
+<td class="left">140</td>
+</tr>
+
+<tr>
+<td class="left">total bytes</td>
+<td class="left">2,862,000</td>
+<td class="left">2,099,000</td>
+</tr>
+
+<tr>
+<td class="left">http bytes</td>
+<td class="left">786,000</td>
+<td class="left">352,000</td>
+</tr>
+
+<tr>
+<td class="left">data bytes</td>
+<td class="left">2,076,000</td>
+<td class="left">1,747,000</td>
+</tr>
+</tbody>
+</table>
+
+</section>
+<section id="slide-sec-3-5">
+<h3 id="sec-3-5">Performance Comparison Considerations</h3>
+<ul>
+<li>There are lies, damned lies, and statistics.
+
+<ul>
+<li>Apples-to-apples comparison is hard.
+
+<ul>
+<li>Rails was run w/ Webrick, hardly hi-performance</li>
+<li>Rerunning test w/ 1 test thread instead of 4
+<ul>
+<li>Marginal degradation in Elixir.</li>
+<li>Didn't push Elixir hard enough.</li>
+
+</ul></li>
+
+</ul></li>
+
+<li>Moral: know what you are perf testing for.</li>
+
+</ul></li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-sec-4">
+<h2 id="sec-4">Demonstrate Web Sockets/Channels in Chat App</h2>
+<div class="outline-text-2" id="text-4">
+</div></section>
+<section id="slide-sec-4-1">
+<h3 id="sec-4-1">Demonstrate Chat App</h3>
+<ul>
+<li>Demo</li>
+<li>The <a href="http://localhost:5000">Code</a></li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-sec-5">
+<h2 id="sec-5">Links</h2>
+<ul>
+<li>My slideshow will be posted after the meeting this evening
+<ul>
+<li>Link will be posted on our OC Ruby Meetup page for this meeting</li>
+
+</ul></li>
+<li><a href="http://www.phoenixframework.org/">Phoenix Framework</a></li>
+<li><a href="https://github.com/chrismccord/phoenix_chat_example">Phoenix Chat Example</a></li>
+<li><a href="http://elixir-lang.org/">elixir</a></li>
+<li>Recommended Books (I've read these)
+<ul>
+<li><a href="http://www.manning.com/juric/">Elixir in Action</a></li>
+<li><a href="https://pragprog.com/book/elixir/programming-elixir">Programming Elixir</a></li>
+
+</ul></li>
+<li><a href="http://www.phoenixframework.org/docs/overview">Guides</a> are excellent</li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-sec-6">
+<h2 id="sec-6">Questions</h2>
+</section>
+</section>
+</div>
+</div>
+
+<script src="file:///Users/SSmith/work/reveal.js/lib/js/head.min.js"></script>
+<script src="file:///Users/SSmith/work/reveal.js/js/reveal.js"></script>
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: false,
+center: true,
+slideNumber: true,
+rollingLinks: false,
+keyboard: true,
+overview: true,
+
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+transitionSpeed: 'default',
+multiplex: {
+    secret: '', // null if client
+    id: '', // id, obtained from socket.io server
+    url: '' // Location of socket.io server
+},
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: 'file:///Users/SSmith/work/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+ { src: 'file:///Users/SSmith/work/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'file:///Users/SSmith/work/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'file:///Users/SSmith/work/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+ { src: 'file:///Users/SSmith/work/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: 'file:///Users/SSmith/work/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+]
+});
+</script>
+</body>
+</html>

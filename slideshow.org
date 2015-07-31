@@ -122,40 +122,31 @@ mv application.html.eex app.html.eex
 | http bytes  | 786,000                                    | 352,000                                    |
 | data bytes  | 2,076,000                                  | 1,747,000                                  |
 
+** Performance Comparison Considerations
+
+- There are lies, damned lies, and statistics.
+
+  - Apples-to-apples comparison is hard.
+
+    - Rails was run w/ Webrick, hardly hi-performance
+    - Rerunning test w/ 1 test thread instead of 4
+      - Marginal degradation in Elixir.
+      - Didn't push Elixir hard enough.
+
+  - Moral: know what you are perf testing for.
+
 * Demonstrate Web Sockets/Channels in Chat App
 ** Demonstrate Chat App
 - Demo
-
-#+BEGIN_NOTES
-Some speaker notes
-#+END_NOTES
-
-** The Elixir Channel
-** The Javascript Client
+- The [[http://localhost:5000][Code]]
+* Links
+- My slideshow will be posted after the meeting this evening
+  - Link will be posted on our OC Ruby Meetup page for this meeting
+- [[http://www.phoenixframework.org/][Phoenix Framework]]
+- [[https://github.com/chrismccord/phoenix_chat_example][Phoenix Chat Example]]
+- [[http://elixir-lang.org/][elixir]]
+- Recommended Books (I've read these)
+  - [[http://www.manning.com/juric/][Elixir in Action]]
+  - [[https://pragprog.com/book/elixir/programming-elixir][Programming Elixir]]
+- [[http://www.phoenixframework.org/docs/overview][Guides]] are excellent
 * Questions
-* Play Area
-
-Nice org mode commands from Forrest.  Just type them as /less-than/ then one of:
-
-  - 's' for code blocks ("source" code)
-  - 'q' for quote
-  - 'h' for html block
-
-then /tab/
-** Try Quote
-#+BEGIN_QUOTE
-Everything should be made as simple as possible,
-     but not any simpler -- Albert Einstein
-#+END_QUOTE
-And let's see what that does.
-** Try HTML
-#+BEGIN_HTML
-<h3>A header</h3>
-<p>Here is a paragraph</p>
-#+END_HTML
-** Try src
-#+BEGIN_SRC ruby
-def bun
-  # do something
-end
-#+END_SRC
