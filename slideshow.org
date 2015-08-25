@@ -5,7 +5,6 @@
 #+Title: Rails and Phoenix Side-by-Side
 #+Author: Scott Smith (OldFartDeveloper)
 #+Email: scottnelsonsmith@gmail.com
-
 * Introduction
 
 - Tonight:
