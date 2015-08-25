@@ -1,5 +1,6 @@
 #    -*- mode: org -*-
 #+OPTIONS: num:nil
+#+REVEAL_ROOT: http://cdn.jsdelivr.net/reveal.js/3.0.0/
 #+OPTIONS: toc:nil
 #+Title: Rails and Phoenix Side-by-Side
 #+Author: Scott Smith (OldFartDeveloper)
